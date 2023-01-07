@@ -99,8 +99,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 8405964097005137245, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
+  snailLayer:
+    serializedVersion: 2
+    m_Bits: 64
   distanceFall: 0.5
   rigid: {fileID: 3350847078551555415}
+  falling: 0
 --- !u!54 &3350847078551555415
 Rigidbody:
   m_ObjectHideFlags: 0
