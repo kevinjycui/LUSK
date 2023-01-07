@@ -66,10 +66,11 @@ public class SnailController : MonoBehaviour
             float horizontalVelocity = horizontalMove * speed;
             transform.Rotate(0f, Time.deltaTime * horizontalVelocity * 15, 0f);
         }
-         else if (verticalMove > 0) {
+        if (verticalMove > 0) {
             float verticalVelocity = verticalMove * speed;
             transform.Translate(0, 0, Time.deltaTime * verticalVelocity);
         }
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
     }
 
     private void WallCheck()
