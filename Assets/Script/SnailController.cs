@@ -9,7 +9,6 @@ public class SnailController : MonoBehaviour
     bool isHidden;
 
     [Header("References")]
-    private Transform orientation;
     private Rigidbody rigidBody;
     [SerializeField]
     LayerMask wallLayer;
@@ -17,19 +16,11 @@ public class SnailController : MonoBehaviour
     [Header("Detection")]
     [SerializeField]
     float detectionLength;
-    public float sphereCastRadius;
+    [SerializeField]
+    float sphereCastRadius;
 
     private RaycastHit frontWallHit;
     private bool wallFront;
-
-    private Transform lastWall;
-    private Vector3 lastWallNormal;
-    public float minWallNormalAngleChange;
-
-    [Header("Exiting")]
-    public bool exitingWall;
-    public float exitWallTime;
-    private float exitWallTimer;
 
     [Header("Movement")]
     [SerializeField]
@@ -47,6 +38,8 @@ public class SnailController : MonoBehaviour
     void Update()
     {
         WallCheck();
+        StateMachine();
+        if (climbing) HandleClimb();
         HandleMovement();
     }
 
@@ -68,7 +61,7 @@ public class SnailController : MonoBehaviour
 
     private void WallCheck()
     {
-        wallFront = Physics.SphereCast(transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, wallLayer);
+        wallFront = Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out frontWallHit, detectionLength, wallLayer);
     }
 
     private void ClimbOn()
@@ -86,4 +79,18 @@ public class SnailController : MonoBehaviour
         climbing = false;
     }
 
+    private void StateMachine()
+    {
+        // Climbing State
+        if (wallFront && Input.GetAxis("Horizontal") != 0) 
+        {
+            if (!climbing) { ClimbOn(); }
+        }
+
+        // Other State
+        else
+        {
+            if(climbing) { ClimbOff(); }
+        }
+    }
 }
