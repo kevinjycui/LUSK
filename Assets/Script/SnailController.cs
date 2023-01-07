@@ -24,7 +24,7 @@ public class SnailController : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField]
-    float speed = 2f;
+    float speed = 5f;
     [SerializeField,HideInInspector]
     private bool climbing;
 
@@ -49,8 +49,8 @@ public class SnailController : MonoBehaviour
     void HandleMovement()
     {
 
-        float horizontalMove = Input.GetAxis("Horizontal");
-        float verticalMove = Input.GetAxis("Vertical");
+        float horizontalMove = Input.GetAxisRaw("Horizontal");
+        float verticalMove = Input.GetAxisRaw("Vertical");
 
         if (horizontalMove != 0 || verticalMove != 0)
         {
@@ -58,7 +58,7 @@ public class SnailController : MonoBehaviour
             float verticalVelocity = verticalMove * speed;
 
             transform.localPosition += transform.forward * Time.deltaTime * verticalVelocity;
-            transform.Rotate(0f, Time.deltaTime * horizontalVelocity * 5, 0f);
+            transform.Rotate(0f, Time.deltaTime * horizontalVelocity * 10, 0f);
         }
     }
 
@@ -74,7 +74,7 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 4*speed, rigidBody.velocity.z);
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 2*speed, rigidBody.velocity.z);
     }
 
     private void ClimbOff()
