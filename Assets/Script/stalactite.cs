@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class stalactite: MonoBehaviour
 {
-    [SerializeField] private Transform player;
+    [SerializeField] public Transform player;
     [SerializeField] private float distanceFall;
     [SerializeField] private Rigidbody rigid;
 
@@ -26,6 +26,5 @@ public class stalactite: MonoBehaviour
     {
         GameObject.Destroy(gameObject);
     }
-
 
 }

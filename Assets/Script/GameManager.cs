@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Transform player;
+
     [Header("Season")]
     [SerializeField] private float timeNextSeason = 0f;
     [SerializeField] private float timeInterval;
@@ -45,8 +47,8 @@ public class GameManager : MonoBehaviour
 
     void Spring()
     {
+        
         snowParticles.SetActive(false);
-        GameObject.Destroy(new_stal);
         rainParticles.SetActive(true);
     }
 
@@ -63,7 +65,8 @@ public class GameManager : MonoBehaviour
     void Winter()
     {
         snowParticles.SetActive(true);
-        new_stal = GameObject.Instantiate<stalactite>(stal);
+        new_stal = GameObject.Instantiate(stal);
+
     }
 
     IEnumerator fadeBlack(int whichSeason)
