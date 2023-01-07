@@ -39,7 +39,10 @@ public class SnailController : MonoBehaviour
     {
         WallCheck();
         StateMachine();
-        if (climbing) HandleClimb();
+        if (climbing)
+        {
+            HandleClimb();
+        }
         HandleMovement();
     }
 
@@ -71,7 +74,7 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        rigidBody.velocity = new Vector3(rigidBody.velocity.x, speed, rigidBody.velocity.z);
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, 4*speed, rigidBody.velocity.z);
     }
 
     private void ClimbOff()
@@ -82,7 +85,7 @@ public class SnailController : MonoBehaviour
     private void StateMachine()
     {
         // Climbing State
-        if (wallFront && Input.GetAxis("Horizontal") != 0) 
+        if (wallFront && Input.GetAxis("Vertical") != 0) 
         {
             if (!climbing) { ClimbOn(); }
         }
