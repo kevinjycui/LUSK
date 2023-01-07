@@ -372,7 +372,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: snail0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8299363022283854295, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
 --- !u!1 &1081083242
 GameObject:
@@ -486,11 +487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHidden: 0
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  detectionLength: 0.5
-  sphereCastRadius: 1
+  detectionLength: 0.8
+  sphereCastRadiusGround: 0.1
   speed: 2
   climbing: 0
 --- !u!1 &2002512454
@@ -569,11 +567,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002512454}
-  m_LocalRotation: {x: -0.0033450183, y: 0.72901964, z: 0.0035627054, w: 0.68447536}
-  m_LocalPosition: {x: -18.25, y: 2.9, z: -0.1}
+  m_LocalRotation: {x: -0.10635082, y: 0.6092199, z: 0.08291115, w: 0.78145146}
+  m_LocalPosition: {x: -13.2, y: 2.9, z: -5.39}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.56, y: 93.61, z: 0}
+  m_LocalEulerAnglesHint: {x: -15.5, y: 75.88, z: 0}
