@@ -9,6 +9,18 @@ public class GameManager : MonoBehaviour
     [SerializeField, HideInInspector] private float timeInterval = 600f;
     [SerializeField, HideInInspector] private int whichSeason = 0;
 
+    [Header("Spring")]
+    
+    
+    [Header("Summer")]
+
+
+    [Header("Fall")]
+
+
+    [Header("Winter")]
+    [SerializeField] stalactite stal;
+
     void Start()
     {
         
