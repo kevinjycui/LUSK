@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [Header("Season")]
-    [SerializeField, HideInInspector] private float timeNextSeason = 0f;
-    [SerializeField, HideInInspector] private float timeInterval = 600f;
+    [SerializeField] private float timeNextSeason = 0f;
+    [SerializeField] private float timeInterval;
     [SerializeField, HideInInspector] private int whichSeason = 0;
 
     [Header("Spring")]
@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     [Header("Winter")]
     [SerializeField] stalactite stal;
 
+    [Header("Transition")]
+    [SerializeField] private CanvasGroup blackScreen;
+
     void Start()
     {
         
@@ -31,22 +34,7 @@ public class GameManager : MonoBehaviour
     {
         if(timeNextSeason < Time.time)
         {
-            if(whichSeason == 0)
-            {
-                Spring();
-            }
-            else if (whichSeason == 1)
-            {
-                Summer();
-            }
-            else if (whichSeason == 2)
-            {
-                Fall();
-            }
-            else if (whichSeason == 3)
-            {
-                Winter();
-            }
+            StartCoroutine(fadeBlack(whichSeason));
             whichSeason = (whichSeason + 1) % 4;
             timeNextSeason += timeInterval;
         }
@@ -55,11 +43,12 @@ public class GameManager : MonoBehaviour
     void Spring()
     {
 
+
     }
 
     void Summer()
     {
-
+        
     }
 
     void Fall()
@@ -71,4 +60,39 @@ public class GameManager : MonoBehaviour
     {
 
     }
+
+    IEnumerator fadeBlack(int whichSeason)
+    {
+        while(blackScreen.alpha < 1f)
+        {
+            blackScreen.alpha += 0.01f;
+            yield return 1f;
+        }
+
+        yield return 50f;
+
+        if (whichSeason == 0)
+        {
+            Spring();
+        }
+        else if (whichSeason == 1)
+        {
+            Summer();
+        }
+        else if (whichSeason == 2)
+        {
+            Fall();
+        }
+        else if (whichSeason == 3)
+        {
+            Winter();
+        }
+
+        while (blackScreen.alpha > 0f)
+        {
+            blackScreen.alpha -= 0.01f;
+            yield return 1f;
+        }
+    }
+
 }
