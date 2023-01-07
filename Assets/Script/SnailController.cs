@@ -9,31 +9,13 @@ public class SnailController : MonoBehaviour
     bool isHidden;
 
     [Header("References")]
-    public Transform orientation;
-    public Rigidbody rb;
-   //ublic PlayerMovementAdvanced pm;
-    public LayerMask whatIsWall;
-
-    [Header("Climbing")]
-    public float climbSpeed;
-    public float maxClimbTime;
-    private float climbTimer;
-
-    private bool climbing;
-
-    [Header("ClimbJumping")]
-    public float climbJumpUpForce;
-    public float climbJumpBackForce;
-
-    public KeyCode jumpKey = KeyCode.Space;
-    public int climbJumps;
-    private int climbJumpsLeft;
+    private Transform orientation;
+    public Rigidbody rigidBody;
+    public LayerMask wallLayer;
 
     [Header("Detection")]
     public float detectionLength;
     public float sphereCastRadius;
-    public float maxWallLookAngle;
-    private float wallLookAngle;
 
     private RaycastHit frontWallHit;
     private bool wallFront;
@@ -50,11 +32,14 @@ public class SnailController : MonoBehaviour
     [Header("Movement")]
     [SerializeField]
     float speed = 2f;
-    
+    [SerializeField,HideInInspector]
+    private bool climbing;
+
 
     // Update is called once per frame
     void Update()
     {
+        WallCheck();
         HandleMovement();
     }
 
@@ -68,6 +53,26 @@ public class SnailController : MonoBehaviour
             float horizontalVelocity = horizontalMove * speed;
             transform.position = new Vector3(transform.position.x + Time.deltaTime * horizontalVelocity, transform.position.y, transform.position.z);
         }
+    }
+
+    private void WallCheck()
+    {
+        wallFront = Physics.SphereCast(transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, wallLayer);
+    }
+
+    private void ClimbOn()
+    {
+        climbing = true;
+    }
+
+    private void HandleClimb()
+    {
+        rigidBody.velocity = new Vector3(rigidBody.)
+    }
+
+    private void ClimbOff()
+    {
+        climbing = false;
     }
 
 }
