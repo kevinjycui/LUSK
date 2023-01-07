@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d0a42a824b300479b9f01a578b4474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 8405964097005137245, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
   distanceFall: 0.5
   rigid: {fileID: 3350847078551555415}
 --- !u!54 &3350847078551555415

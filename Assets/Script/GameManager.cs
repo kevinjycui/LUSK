@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
     [Header("Season")]
     [SerializeField] private float timeNextSeason = 0f;
     [SerializeField] private float timeInterval;
-    [SerializeField, HideInInspector] private int whichSeason = 0;
+    [SerializeField, HideInInspector] private int whichSeason;
 
     [Header("Spring")]
-    
+    [SerializeField] GameObject rainParticles;
     
     [Header("Summer")]
 
@@ -20,13 +20,16 @@ public class GameManager : MonoBehaviour
 
     [Header("Winter")]
     [SerializeField] stalactite stal;
+    [SerializeField] GameObject snowParticles;
+    [SerializeField, HideInInspector] stalactite new_stal = null;
 
     [Header("Transition")]
     [SerializeField] private CanvasGroup blackScreen;
 
     void Start()
     {
-        
+        Spring();
+        whichSeason = 1;
     }
 
     // Update is called once per frame
@@ -42,12 +45,14 @@ public class GameManager : MonoBehaviour
 
     void Spring()
     {
-        
+        snowParticles.SetActive(false);
+        GameObject.Destroy(new_stal);
+        rainParticles.SetActive(true);
     }
 
     void Summer()
     {
-        
+        rainParticles.SetActive(false);
     }
 
     void Fall()
@@ -57,7 +62,8 @@ public class GameManager : MonoBehaviour
 
     void Winter()
     {
-
+        snowParticles.SetActive(true);
+        new_stal = GameObject.Instantiate<stalactite>(stal);
     }
 
     IEnumerator fadeBlack(int whichSeason)
