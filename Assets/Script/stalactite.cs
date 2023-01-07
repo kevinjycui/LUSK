@@ -16,14 +16,16 @@ public class stalactite: MonoBehaviour
 
     void Update()
     {
-        if((transform.position.x - player.transform.position.x) < distanceFall || (transform.position.z - player.transform.position.z) < distanceFall)
+        if(Mathf.Abs(transform.position.x - player.transform.position.x) < distanceFall || Mathf.Abs(transform.position.z - player.transform.position.z) < distanceFall)
         {
             rigid.useGravity = true;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         GameObject.Destroy(gameObject);
     }
+
+
 }
