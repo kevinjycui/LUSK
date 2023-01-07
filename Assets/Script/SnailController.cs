@@ -5,14 +5,41 @@ using UnityEngine;
 
 public class SnailController : MonoBehaviour
 {
+    [SerializeField, HideInInspector]
+    bool isHidden;
+
+    [Header("References")]
+    private Transform orientation;
+    public Rigidbody rigidBody;
+    public LayerMask wallLayer;
+
+    [Header("Detection")]
+    public float detectionLength;
+    public float sphereCastRadius;
+
+    private RaycastHit frontWallHit;
+    private bool wallFront;
+
+    private Transform lastWall;
+    private Vector3 lastWallNormal;
+    public float minWallNormalAngleChange;
+
+    [Header("Exiting")]
+    public bool exitingWall;
+    public float exitWallTime;
+    private float exitWallTimer;
+
     [Header("Movement")]
     [SerializeField]
-    float speed = 5f;
-    
+    float speed = 2f;
+    [SerializeField,HideInInspector]
+    private bool climbing;
+
 
     // Update is called once per frame
     void Update()
     {
+        WallCheck();
         HandleMovement();
     }
 
@@ -30,6 +57,26 @@ public class SnailController : MonoBehaviour
             transform.localPosition += transform.forward * Time.deltaTime * verticalVelocity;
             transform.Rotate(0f, Time.deltaTime * horizontalVelocity * 5, 0f);
         }
+    }
+
+    private void WallCheck()
+    {
+        wallFront = Physics.SphereCast(transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, wallLayer);
+    }
+
+    private void ClimbOn()
+    {
+        climbing = true;
+    }
+
+    private void HandleClimb()
+    {
+        rigidBody.velocity = new Vector3(rigidBody.)
+    }
+
+    private void ClimbOff()
+    {
+        climbing = false;
     }
 
 }
