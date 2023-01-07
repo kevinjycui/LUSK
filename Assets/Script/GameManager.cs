@@ -42,8 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Spring()
     {
-
-
+        
     }
 
     void Summer()
@@ -65,11 +64,11 @@ public class GameManager : MonoBehaviour
     {
         while(blackScreen.alpha < 1f)
         {
-            blackScreen.alpha += 0.01f;
-            yield return 1f;
+            blackScreen.alpha += 0.005f;
+            yield return 5f;
         }
 
-        yield return 50f;
+        yield return new WaitForSeconds(0.25f);
 
         if (whichSeason == 0)
         {
@@ -90,8 +89,8 @@ public class GameManager : MonoBehaviour
 
         while (blackScreen.alpha > 0f)
         {
-            blackScreen.alpha -= 0.01f;
-            yield return 1f;
+            blackScreen.alpha -= 0.005f;
+            yield return 5f;
         }
     }
 

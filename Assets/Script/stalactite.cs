@@ -16,7 +16,7 @@ public class stalactite: MonoBehaviour
 
     void Update()
     {
-        if((transform.position.x - player.transform.position.x) < distanceFall)
+        if((transform.position.x - player.transform.position.x) < distanceFall || (transform.position.z - player.transform.position.z) < distanceFall)
         {
             rigid.useGravity = true;
         }
