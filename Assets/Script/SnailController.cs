@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class SnailController : MonoBehaviour
@@ -33,9 +32,13 @@ public class SnailController : MonoBehaviour
     private bool climbing;
     private bool descending;
 
+    [SerializeField, HideInInspector] Quaternion initialRot;
+    bool first = true;
+
 
     void Start()
     {
+        Quaternion initialRot = transform.rotation;
     }
 
     // Update is called once per frame
@@ -45,6 +48,7 @@ public class SnailController : MonoBehaviour
         GroundCheck();
         CliffCheck();
         setClimbing();
+        setDescending();
         if (climbing)
         {
             HandleClimb();
@@ -71,7 +75,8 @@ public class SnailController : MonoBehaviour
     private void WallCheck()
     {
         wallFront = Physics.Raycast((transform.position + transform.forward * 0.3f), transform.forward, out frontWallHit, detectionLength);
-        frontHitAngle = Vector3.Angle(frontWallHit.normal, Vector3.up);
+        frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
+        Debug.Log(frontHitAngle);
     }
 
     private void GroundCheck()
@@ -79,6 +84,8 @@ public class SnailController : MonoBehaviour
         onGround = Physics.SphereCast(transform.position, sphereCastRadiusGround, -transform.up, out groundHit, detectionLength);
         groundHitAngle = Vector3.Angle(groundHit.normal, Vector3.up);
         groundDirection = Vector3.zero;
+
+        
     }
 
     private void CliffCheck()
@@ -112,9 +119,9 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        transform.Rotate((360 - frontHitAngle), 180f, 180f);
-
-        
+        transform.position += transform.forward;
+        transform.position += transform.up;
+        transform.Rotate(-frontHitAngle, 0f, 0f);
     }
 
     private void ClimbOff()
