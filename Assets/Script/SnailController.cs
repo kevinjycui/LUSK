@@ -10,11 +10,13 @@ public class SnailController : MonoBehaviour
 
     [Header("References")]
     private Transform orientation;
-    public Rigidbody rigidBody;
-    public LayerMask wallLayer;
+    private Rigidbody rigidBody;
+    [SerializeField]
+    LayerMask wallLayer;
 
     [Header("Detection")]
-    public float detectionLength;
+    [SerializeField]
+    float detectionLength;
     public float sphereCastRadius;
 
     private RaycastHit frontWallHit;
@@ -35,6 +37,11 @@ public class SnailController : MonoBehaviour
     [SerializeField,HideInInspector]
     private bool climbing;
 
+
+    void Start()
+    {
+        rigidBody = gameObject.GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -71,7 +78,7 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        rigidBody.velocity = new Vector3(rigidBody.)
+        rigidBody.velocity = new Vector3(rigidBody.velocity.x, speed, rigidBody.velocity.z);
     }
 
     private void ClimbOff()
