@@ -606,6 +606,10 @@ PrefabInstance:
       value: rainParticles
       objectReference: {fileID: 0}
     - target: {fileID: 902517887834234770, guid: 52936bff389bf5b468101c7a95093a1f, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 902517887834234770, guid: 52936bff389bf5b468101c7a95093a1f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2792,13 +2796,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHidden: 0
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 0
   detectionLength: 0.1
-  sphereCastRadius: 0.12
+  sphereCastRadiusGround: 0
   speed: 5
   climbing: 0
+--- !u!4 &1964733249 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8405964097005137245, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
+  m_PrefabInstance: {fileID: 2080481807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2012000113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3162,12 +3168,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3491297719036294541, guid: 7fb94b663caf9154d941aa75ab3dfe19, type: 3}
     - target: {fileID: 3641722485325573907, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1964733249}
+    - target: {fileID: 3641722485325573907, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
       propertyPath: blackScreen
       value: 
       objectReference: {fileID: 182371350}
     - target: {fileID: 3641722485325573907, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
       propertyPath: timeInterval
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3641722485325573907, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
       propertyPath: rainParticles
@@ -3179,7 +3189,7 @@ PrefabInstance:
       objectReference: {fileID: 1733787199168057511}
     - target: {fileID: 3641722485325573907, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
       propertyPath: timeNextSeason
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69bd4f7c2db190b43aa884309c5ae2b9, type: 3}
@@ -3193,6 +3203,10 @@ PrefabInstance:
     - target: {fileID: 6358533757763215692, guid: a6f03fbf0a0ecfb4f89e1067c1c2f074, type: 3}
       propertyPath: m_Name
       value: snowParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6358533757763215692, guid: a6f03fbf0a0ecfb4f89e1067c1c2f074, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7250289455882089051, guid: a6f03fbf0a0ecfb4f89e1067c1c2f074, type: 3}
       propertyPath: m_RootOrder
