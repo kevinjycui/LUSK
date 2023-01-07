@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Spring")]
     [SerializeField] GameObject rainParticles;
+    [SerializeField] WaterPuddle waterPuddle;
+    [SerializeField, HideInInspector] WaterPuddle new_waterPuddle = null;
     
     [Header("Summer")]
 
@@ -24,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] stalactite stal;
     [SerializeField] GameObject snowParticles;
     [SerializeField, HideInInspector] stalactite new_stal = null;
+    [SerializeField] bool stalFell;
 
     [Header("Transition")]
     [SerializeField] private CanvasGroup blackScreen;
@@ -43,18 +47,21 @@ public class GameManager : MonoBehaviour
             whichSeason = (whichSeason + 1) % 4;
             timeNextSeason += timeInterval;
         }
+
     }
 
     void Spring()
     {
-        
+        CheckPuddle();
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
+        if (new_stal != null && new_stal.isActiveAndEnabled) Destroy(new_stal);
     }
 
     void Summer()
     {
         rainParticles.SetActive(false);
+        if (new_waterPuddle != null && new_waterPuddle.isActiveAndEnabled) Destroy(new_waterPuddle);
     }
 
     void Fall()
@@ -66,7 +73,6 @@ public class GameManager : MonoBehaviour
     {
         snowParticles.SetActive(true);
         new_stal = GameObject.Instantiate(stal);
-
     }
 
     IEnumerator fadeBlack(int whichSeason)
@@ -101,6 +107,11 @@ public class GameManager : MonoBehaviour
             blackScreen.alpha -= 0.005f;
             yield return 5f;
         }
+    }
+
+    void CheckPuddle()
+    {
+        if (stalFell) { GameObject.Instantiate(waterPuddle); }
     }
 
 }
