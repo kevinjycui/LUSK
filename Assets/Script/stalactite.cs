@@ -5,6 +5,7 @@ using UnityEngine;
 public class stalactite: MonoBehaviour
 {
     [SerializeField] public Transform player;
+    [SerializeField] public LayerMask snailLayer;
     [SerializeField] private float distanceFall;
     [SerializeField] private Rigidbody rigid;
 
@@ -16,10 +17,11 @@ public class stalactite: MonoBehaviour
 
     void Update()
     {
-        if(Mathf.Abs(transform.position.x - player.transform.position.x) < distanceFall || Mathf.Abs(transform.position.z - player.transform.position.z) < distanceFall)
-        {
+        player = GameObject.FindWithTag("Player").transform;
+        if ((Mathf.Abs(transform.position.x - player.position.x) < 0.5) && (Mathf.Abs(transform.position.z - player.position.z) < 0.5)){
             rigid.useGravity = true;
         }
+       
     }
 
     void OnCollisionEnter(Collision collision)
