@@ -50,8 +50,6 @@ public class SnailController : MonoBehaviour
     [Header("Movement")]
     [SerializeField]
     float speed = 2f;
-    [SerializeField, HideInInspector]
-    float x_pos = 0f;
     
 
     // Update is called once per frame
@@ -68,8 +66,7 @@ public class SnailController : MonoBehaviour
         if (horizontalMove != 0)
         {
             float horizontalVelocity = horizontalMove * speed;
-            x_pos += Time.deltaTime * horizontalVelocity;
-            transform.position = new Vector3(x_pos, transform.position.y, transform.position.z);
+            transform.position = new Vector3(transform.position.x + Time.deltaTime * horizontalVelocity, transform.position.y, transform.position.z);
         }
     }
 
