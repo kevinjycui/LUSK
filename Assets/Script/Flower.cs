@@ -39,7 +39,7 @@ public class Flower : MonoBehaviour
     }
 
     IEnumerator Grow()
-    {
-        yield return 1;
+    {   
+        yield return new WaitForSeconds(growthInterval);
     }
 }
