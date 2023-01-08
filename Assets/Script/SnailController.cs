@@ -13,61 +13,41 @@ public class SnailController : MonoBehaviour
 
     private RaycastHit frontWallHit;
     private float frontHitAngle;
-    private bool wallFront;
 
     private RaycastHit groundHit;
     private float groundHitAngle;
     private Vector3 groundDirection;
-    private bool onGround;
     [SerializeField]
     float sphereCastRadiusGround;
 
     private RaycastHit cliffHit;
     private float nearCliffAngle;
-    private bool onCliff;
 
 
     [SerializeField] private LayerMask wallMask;
     [Header("Movement")]
     [SerializeField]
     float speed = 5f;
-    [SerializeField,HideInInspector]
-    private bool climbing;
-    private bool descending;
 
     [SerializeField, HideInInspector] Quaternion initialRot;
     bool first = true;
-    private bool nearCliff;
 
     void Start()
     {
         Quaternion initialRot = transform.rotation;
+      
+        MoveToGround();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        MoveToGround();
+
         WallCheck();
-        GroundCheck();
-        setClimbing();
         CliffCheck();
-      
-        while (!GroundCheck())
-        {
-            transform.Translate(-transform.up * 0.01f);
-        }
-        
-        if (climbing)
-        {
-            HandleClimb();
-        }
-        
-        else if (!nearCliff)
-        {
-            nearCliff = Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, detectionLength);
-            nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
-            HandleClimbDown();
-        } 
+
         HandleMovement();
     }
 
@@ -85,67 +65,63 @@ public class SnailController : MonoBehaviour
             float verticalVelocity = verticalMove * speed;
             transform.Translate(0, 0, Time.deltaTime * verticalVelocity);
         }
-        // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
+        // transform.localRotation = Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0f));
     }
 
     private void WallCheck()
     {
-        wallFront = Physics.Raycast((transform.position + transform.forward * 0.3f), transform.forward, out frontWallHit, detectionLength);
-        frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
-        Debug.Log(frontHitAngle);
+        Ray ray = new Ray();
+        ray.origin = transform.position + transform.forward * 0.3f;
+        ray.direction = transform.forward;
+        Debug.DrawLine(ray.origin, ray.direction, Color.green, 2, false);
+        if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
+            Debug.Log("up");
+            frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
+            transform.Rotate(-frontHitAngle, 0f, 0f);
+            transform.position = frontWallHit.point;
+        }
+        // Debug.Log(frontHitAngle);
     }
     
     private bool GroundCheck()
     {
         Ray ray = new Ray();
-        ray.origin = transform.position;
+        ray.origin = transform.position + transform.up;
         ray.direction = -transform.up;
-        return Physics.SphereCast(ray, 0.01f, 0.5f, wallMask);
+        return Physics.SphereCast(ray, sphereCastRadiusGround, 0.3f + detectionLength, wallMask);
 
+    }
+
+    private void MoveToGround()
+    {
+        if (GroundCheck()) return;
+
+        Ray ray = new Ray();
+        ray.origin = transform.position + transform.up;
+        ray.direction = -transform.up;
+        
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, Mathf.Infinity, wallMask);
+
+        transform.position = hit.point;
     }
 
     private void CliffCheck()
     {
-        nearCliff = Physics.Raycast((transform.position + transform.forward * 0.3f), -transform.up, out groundHit, detectionLength);
-
-
-    }
-
-    private void setClimbing()
-    {
-        if (frontHitAngle < 92 && frontHitAngle > 15 && !descending)
-        {
-            climbing = true;
+        Ray ray = new Ray();
+        ray.origin = transform.position + transform.forward * (0.3f + 0.1f) + transform.up;
+        ray.direction = -transform.up;
+        Debug.DrawLine(ray.origin, ray.direction, Color.red, 2, false);
+        if (!Physics.Raycast(ray, detectionLength * 10f, wallMask)) {
+            Debug.Log("cliff");
+            if (Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, 0.3f)) {
+                Debug.Log("down");
+                nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
+                transform.Rotate(90-nearCliffAngle, 0f, 0f);
+                transform.position = groundHit.point;
+            }
         }
-        else
-        {
-            climbing = false;
-        }
+
     }
 
-    private void setDescending()
-    {
-        if(frontHitAngle < 92 && frontHitAngle > 15 && descending)
-        {
-            descending = true;
-        }
-        else
-        {
-            descending = false;
-        }
-    }
-
-    private void HandleClimb()
-    {
-        //transform.position += 0.88f * transform.forward;
-        //transform.position += transform.up;
-        transform.Rotate(-frontHitAngle, 0f, 0f);
-    }
-
-    private void HandleClimbDown()
-    {
-        //transform.position += 0.88f * transform.forward;
-        //transform.position -= transform.up;
-        transform.Rotate(90-nearCliffAngle, 0f, 0f);
-    }
 }
