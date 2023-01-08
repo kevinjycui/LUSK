@@ -43,8 +43,7 @@ public class Kettle : MonoBehaviour
     
     void LoadedAndSummer()
     {
-        //&& fm.season == 1
-        if (isLoaded)
+        if (isLoaded && fm.season == 1)
         {
             isActive = true;
         }

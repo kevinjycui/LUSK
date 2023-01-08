@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndingScript : MonoBehaviour
 {
     [SerializeField] Transform player;
     [SerializeField] CanvasGroup blackScreen;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         TheEnd();
     }
