@@ -24,7 +24,7 @@ public class SnailMove : MonoBehaviour
 
     void Update()
     {
-        
+        /*
         if (!GroundCheck())
         {
             transform.Translate(-transform.up * Time.deltaTime);
@@ -35,9 +35,21 @@ public class SnailMove : MonoBehaviour
             {
                 transform.Rotate(-wallAngle, 0f, 0f);
             }
+            else
+            {
+                HandleMovement();
+            }
+        }
+        */
+        if (WallCheck())
+        {
+            transform.Rotate(-wallAngle, 0f, 0f);
+        }
+        else
+        {
             HandleMovement();
         }
-        
+
     }
 
     private bool GroundCheck()

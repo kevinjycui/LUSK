@@ -56,7 +56,7 @@ public class SnailController : MonoBehaviour
         {
             transform.Translate(-transform.up * Time.deltaTime);
         }
-        /*
+        
         else if (climbing)
         {
             HandleClimb();
@@ -67,7 +67,7 @@ public class SnailController : MonoBehaviour
             nearCliff = Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, detectionLength);
             nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
             HandleClimbDown();
-        } */
+        } 
         HandleMovement();
     }
 
@@ -137,15 +137,15 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        transform.position += 0.88f * transform.forward;
-        transform.position += transform.up;
-        transform.Rotate(-90f, 0f, 0f);
+        //transform.position += 0.88f * transform.forward;
+        //transform.position += transform.up;
+        transform.Rotate(-frontHitAngle, 0f, 0f);
     }
 
     private void HandleClimbDown()
     {
-        transform.position += 0.88f * transform.forward;
-        transform.position -= transform.up;
+        //transform.position += 0.88f * transform.forward;
+        //transform.position -= transform.up;
         transform.Rotate(90-nearCliffAngle, 0f, 0f);
     }
 }
