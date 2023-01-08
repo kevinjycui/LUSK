@@ -6,7 +6,7 @@ public class Plank : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public LayerMask snailLayer;
-    private Rigidbody rigid;
+    [SerializeField] Rigidbody rigid;
 
     void Start()
     {
