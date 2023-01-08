@@ -23,13 +23,9 @@ public class Flower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fm.season == 1)
-        {
-            gameObject.SetActive(true);
-        }
-        else if (fm.season == 2) { Grow(); }
+        if (fm.season == 1) { Grow(); }
+        else if (fm.season == 0) { }
         else gameObject.SetActive(false);
-
 
     }
 
@@ -43,7 +39,7 @@ public class Flower : MonoBehaviour
     }
 
     IEnumerator Grow()
-    {
-        yield return 1;
+    {   
+        yield return new WaitForSeconds(growthInterval);
     }
 }

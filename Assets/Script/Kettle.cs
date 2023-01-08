@@ -32,7 +32,7 @@ public class Kettle : MonoBehaviour
         GameObject.Destroy(spiderWeb);
     }
 
-    void OnCollisionEnter(Collider target)
+    void OnTriggerEven(Collider target)
     {
         if (target.gameObject.tag.Equals("leaf") == true)
         {
