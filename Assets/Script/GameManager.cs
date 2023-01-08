@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Winter")]
     [SerializeField] GameObject Icicle;
+    private Transform Icicle_transform;
     [SerializeField] GameObject snowParticles;
 
     [Header("Transition")]
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Icicle_transform = Icicle.transform;
         Spring();
         whichSeason = 1;
     }
@@ -51,16 +53,18 @@ public class GameManager : MonoBehaviour
 
     void Spring()
     {
-        CheckPuddle();
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
-        if (Icicle.gameObject.isActiveAndEnabled) new_stal.gameObject.SetActive(false);
+        if (Icicle.gameObject.activeSelf) Icicle.gameObject.SetActive(false);
+        Icicle.transform.position = Icicle_transform.position;
+        if (fieldManager.stal_fell == true) waterPuddle.gameObject.SetActive(true);
+        fieldManager.stal_fell = false;
     }
 
     void Summer()
     {
         rainParticles.SetActive(false);
-        if (new_waterPuddle != null && new_waterPuddle.isActiveAndEnabled) new_waterPuddle.gameObject.SetActive(false);
+        if (waterPuddle != null && waterPuddle.gameObject.activeSelf) waterPuddle.gameObject.SetActive(false);
     }
 
     void Fall()
@@ -71,8 +75,7 @@ public class GameManager : MonoBehaviour
     void Winter()
     {
         snowParticles.SetActive(true);
-        if(new_stal == null) new_stal = GameObject.Instantiate(stal);
-        else new_stal.gameObject.SetActive(true);
+        Icicle.gameObject.SetActive(true);
     }
 
     IEnumerator fadeBlack(int whichSeason)
@@ -106,18 +109,6 @@ public class GameManager : MonoBehaviour
         {
             blackScreen.alpha -= 0.005f;
             yield return 5f;
-        }
-    }
-
-    void CheckPuddle()
-    {
-        if (new_waterPuddle)
-        {
-            if (new_waterPuddle == null)
-            {
-                GameObject.Instantiate(waterPuddle);
-            }
-            else { new_waterPuddle.gameObject.SetActive(true); }
         }
     }
 
