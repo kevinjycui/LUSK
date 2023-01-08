@@ -6,28 +6,27 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] FieldManager fieldManager;
 
     [Header("Season")]
     [SerializeField] private float timeNextSeason = 0f;
     [SerializeField] private float timeInterval;
     [SerializeField, HideInInspector] private int whichSeason;
 
+
     [Header("Spring")]
     [SerializeField] GameObject rainParticles;
     [SerializeField] WaterPuddle waterPuddle;
-    [SerializeField, HideInInspector] WaterPuddle new_waterPuddle = null;
     
     [Header("Summer")]
 
-
+    
     [Header("Fall")]
 
 
     [Header("Winter")]
-    [SerializeField] stalactite stal;
+    [SerializeField] GameObject Icicle;
     [SerializeField] GameObject snowParticles;
-    [SerializeField, HideInInspector] stalactite new_stal = null;
-    [SerializeField] bool stalFell;
 
     [Header("Transition")]
     [SerializeField] private CanvasGroup blackScreen;
@@ -37,7 +36,7 @@ public class GameManager : MonoBehaviour
         Spring();
         whichSeason = 1;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -55,13 +54,13 @@ public class GameManager : MonoBehaviour
         CheckPuddle();
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
-        if (new_stal != null && new_stal.isActiveAndEnabled) Destroy(new_stal);
+        if (Icicle.gameObject.isActiveAndEnabled) new_stal.gameObject.SetActive(false);
     }
 
     void Summer()
     {
         rainParticles.SetActive(false);
-        if (new_waterPuddle != null && new_waterPuddle.isActiveAndEnabled) Destroy(new_waterPuddle);
+        if (new_waterPuddle != null && new_waterPuddle.isActiveAndEnabled) new_waterPuddle.gameObject.SetActive(false);
     }
 
     void Fall()
@@ -72,7 +71,8 @@ public class GameManager : MonoBehaviour
     void Winter()
     {
         snowParticles.SetActive(true);
-        new_stal = GameObject.Instantiate(stal);
+        if(new_stal == null) new_stal = GameObject.Instantiate(stal);
+        else new_stal.gameObject.SetActive(true);
     }
 
     IEnumerator fadeBlack(int whichSeason)
@@ -111,7 +111,14 @@ public class GameManager : MonoBehaviour
 
     void CheckPuddle()
     {
-        if (stalFell) { GameObject.Instantiate(waterPuddle); }
+        if (new_waterPuddle)
+        {
+            if (new_waterPuddle == null)
+            {
+                GameObject.Instantiate(waterPuddle);
+            }
+            else { new_waterPuddle.gameObject.SetActive(true); }
+        }
     }
 
 }

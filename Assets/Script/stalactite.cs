@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class stalactite: MonoBehaviour
 {
-    [SerializeField] public Transform player;
+    private Transform player;
+    private Transform transform;
     [SerializeField] public LayerMask snailLayer;
-    [SerializeField] private Rigidbody rigid;
+    private Rigidbody rigid;
+    [SerializeField] FieldManager fm;
 
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
         rigid.useGravity = false;
+        transform = gameObject.transform;
     }
 
     void Update()
@@ -26,7 +29,10 @@ public class stalactite: MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        GameObject.Destroy(gameObject);
+        
+        gameObject.SetActive(false);
+        fm.stal_fell = true;
+
     }
 
 }
