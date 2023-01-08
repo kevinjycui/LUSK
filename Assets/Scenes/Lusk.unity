@@ -123,6 +123,75 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &24681504
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 122356785046298497, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.42745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 122356785046298497, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.5829477
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_RootOrder
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -87.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.4111714
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.4111714
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5752722
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5752722
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3075111592463191254, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 18.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 7764624625320294767, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_Name
+      value: SunParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 7764624625320294767, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
 --- !u!1 &34717815
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +581,7 @@ MonoBehaviour:
   player: {fileID: 713229249}
   rainParticles: {fileID: 530441223}
   snowParticles: {fileID: 1187274336}
+  sunParticles: {fileID: 1862092261}
 --- !u!1 &133306705
 GameObject:
   m_ObjectHideFlags: 0
@@ -4682,6 +4752,7 @@ MonoBehaviour:
   - {fileID: 1526138433}
   - {fileID: 76769572}
   flowers: []
+  sunParticles: {fileID: 1862092261}
   icicles:
   - {fileID: 1047741261}
   - {fileID: 447443252}
@@ -6491,6 +6562,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858349988}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1862092261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7764624625320294767, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
+  m_PrefabInstance: {fileID: 24681504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1876195064
 GameObject:
   m_ObjectHideFlags: 0
