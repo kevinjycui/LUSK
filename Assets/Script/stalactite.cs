@@ -22,8 +22,6 @@ public class stalactite: MonoBehaviour
     {
         if (fm.season == 3)
         {
-            gameObject.SetActive(true);
-
             player = GameObject.FindWithTag("Player").transform;
             if ((Mathf.Abs(transform.position.x - player.position.x) < 2.5) && (Mathf.Abs(transform.position.z - player.position.z) < 2.5) && (0 < (transform.position.y - player.position.y)) && (transform.position.y - player.position.y) < 20)
             {
