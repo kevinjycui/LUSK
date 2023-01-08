@@ -51,21 +51,23 @@ public class SnailController : MonoBehaviour
         GroundCheck();
         setClimbing();
         CliffCheck();
-
-        if (!onGround)
+      
+        if (!GroundCheck())
         {
-            transform.Translate(0f, Time.deltaTime * -2f, 0f);
+            transform.Translate(-transform.up * Time.deltaTime);
         }
+        /*
         else if (climbing)
         {
             HandleClimb();
         }
+        
         else if (!nearCliff)
         {
             nearCliff = Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, detectionLength);
             nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
             HandleClimbDown();
-        }
+        } */
         HandleMovement();
     }
 
@@ -93,10 +95,13 @@ public class SnailController : MonoBehaviour
         Debug.Log(frontHitAngle);
     }
     
-    private void GroundCheck()
+    private bool GroundCheck()
     {
-        onGround = Physics.SphereCast(transform.position, 0.01f, -transform.up, out groundHit, 0.05f); 
-        
+        Ray ray = new Ray();
+        ray.origin = transform.position;
+        ray.direction = -transform.up;
+        return Physics.SphereCast(ray, 0.01f, 0.5f, wallMask);
+
     }
 
     private void CliffCheck()
@@ -134,7 +139,7 @@ public class SnailController : MonoBehaviour
     {
         transform.position += 0.88f * transform.forward;
         transform.position += transform.up;
-        transform.Rotate(-frontHitAngle, 0f, 0f);
+        transform.Rotate(-90f, 0f, 0f);
     }
 
     private void HandleClimbDown()
