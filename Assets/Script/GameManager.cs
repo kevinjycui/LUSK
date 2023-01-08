@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Flower[] flowers;
 
     [Header("Summer")]
-
+    [SerializeField] GameObject sunParticles;
 
     [Header("Fall")]
 
@@ -74,10 +74,12 @@ public class GameManager : MonoBehaviour
         fieldManager.season = 1;
         rainParticles.SetActive(false);
         fieldManager.raining = false;
+        sunParticles.SetActive(true);
     }
 
     void Fall()
     {
+        sunParticles.SetActive(false);
         fieldManager.season = 2;
     }
 
