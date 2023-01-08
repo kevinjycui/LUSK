@@ -12,6 +12,7 @@ public class Flower : MonoBehaviour
     private float currentHeight;
     [SerializeField] float maxHeight;
     private Transform pos;
+    [SerializeField] float growthInterval;
 
     void Start()
     {
@@ -22,7 +23,14 @@ public class Flower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (fm.season == 1)
+        {
+            gameObject.SetActive(true);
+        }
+        else if (fm.season == 2) { Grow(); }
+        else gameObject.SetActive(false);
+
+
     }
 
     public bool IsTableThere()

@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Winter")]
     [SerializeField] GameObject Icicle;
-    private Transform Icicle_transform;
     [SerializeField] GameObject snowParticles;
 
     [Header("Transition")]
@@ -35,7 +34,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Icicle_transform = Icicle.transform;
         Spring();
         whichSeason = 1;
     }
@@ -54,33 +52,28 @@ public class GameManager : MonoBehaviour
 
     void Spring()
     {
+        fieldManager.season = 0;
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
         fieldManager.raining = true;
-        flower.gameObject.SetActive(true);
-
-        if (Icicle.gameObject.activeSelf) Icicle.gameObject.SetActive(false);
-        Icicle.transform.position = Icicle_transform.position;
-        if (fieldManager.stal_fell == true) waterPuddle.gameObject.SetActive(true);
-        fieldManager.stal_fell = false;
     }
 
     void Summer()
     {
+        fieldManager.season = 1;
         rainParticles.SetActive(false);
         fieldManager.raining = false;
-        if (waterPuddle != null && waterPuddle.gameObject.activeSelf) waterPuddle.gameObject.SetActive(false);
     }
 
     void Fall()
     {
-        flower.gameObject.SetActive(false);
+        fieldManager.season = 2;
     }
 
     void Winter()
     {
+        fieldManager.season = 3;
         snowParticles.SetActive(true);
-        Icicle.gameObject.SetActive(true);
     }
 
     IEnumerator fadeBlack(int whichSeason)
