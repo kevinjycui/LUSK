@@ -52,12 +52,12 @@ public class SnailController : MonoBehaviour
         setClimbing();
         CliffCheck();
       
-        if (!GroundCheck())
+        while (!GroundCheck())
         {
-            transform.Translate(-transform.up * Time.deltaTime);
+            transform.Translate(-transform.up * 0.01f);
         }
         
-        else if (climbing)
+        if (climbing)
         {
             HandleClimb();
         }
@@ -85,7 +85,7 @@ public class SnailController : MonoBehaviour
             float verticalVelocity = verticalMove * speed;
             transform.Translate(0, 0, Time.deltaTime * verticalVelocity);
         }
-        //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
+        // transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
     }
 
     private void WallCheck()
