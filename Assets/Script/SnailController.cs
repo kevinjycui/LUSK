@@ -73,7 +73,7 @@ public class SnailController : MonoBehaviour
         Ray ray = new Ray();
         ray.origin = transform.position + transform.forward * 0.3f;
         ray.direction = transform.forward;
-        Debug.DrawLine(ray.origin, ray.direction, Color.green, 2, false);
+        Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
         if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
             Debug.Log("up");
             frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
@@ -111,10 +111,16 @@ public class SnailController : MonoBehaviour
         Ray ray = new Ray();
         ray.origin = transform.position + transform.forward * (0.3f + 0.1f) + transform.up;
         ray.direction = -transform.up;
-        Debug.DrawLine(ray.origin, ray.direction, Color.red, 2, false);
+        Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.red, 2, false);
+
+        Ray ray2 = new Ray();
+        ray2.origin = ray.origin + ray.direction * detectionLength;
+        ray2.direction = -transform.forward;
+        Debug.DrawRay(ray2.origin, ray2.direction * detectionLength, Color.blue, 2, false);
+
         if (!Physics.Raycast(ray, detectionLength * 10f, wallMask)) {
             Debug.Log("cliff");
-            if (Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, 0.3f)) {
+            if (Physics.Raycast(ray2, out groundHit, 0.3f)) {
                 Debug.Log("down");
                 nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
                 transform.Rotate(90-nearCliffAngle, 0f, 0f);
