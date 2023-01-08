@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        snowParticles.transform.position = transform.position + new Vector3(0f, 0f, 1f);
-        rainParticles.transform.position = transform.position + new Vector3(0f, 0f, 1f);
+        snowParticles.transform.position = transform.position - new Vector3(2f, 0f, 0f);
+        rainParticles.transform.position = transform.position - new Vector3(2f, 0f, 0f);
         transform.position = new Vector3(transform.position.x, player.transform.position.y + 10, player.transform.position.z);
     }
 }
