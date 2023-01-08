@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 283febe5b97d58f459bff90d8708d655, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 47a7dc37ff7d1c2439dc1f0260aceb6e, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5640,7 +5640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8405964097005137245, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.7
+      value: 87.6
       objectReference: {fileID: 0}
     - target: {fileID: 8405964097005137245, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6154,6 +6154,52 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796789691}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1830704116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830704118}
+  - component: {fileID: 1830704117}
+  m_Layer: 0
+  m_Name: WindZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!182 &1830704117
+WindZone:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830704116}
+  m_Enabled: 1
+  m_Mode: 0
+  m_Radius: 20
+  m_WindMain: 1
+  m_WindTurbulence: 12.91
+  m_WindPulseMagnitude: 9.32
+  m_WindPulseFrequency: 5.8
+--- !u!4 &1830704118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830704116}
+  m_LocalRotation: {x: 0.13501325, y: -0, z: -0, w: 0.9908438}
+  m_LocalPosition: {x: 0, y: 89.6, z: -6.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 15.519, y: 0, z: 0}
 --- !u!1 &1837455497
 GameObject:
   m_ObjectHideFlags: 0
