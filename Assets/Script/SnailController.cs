@@ -23,8 +23,11 @@ public class SnailController : MonoBehaviour
     float sphereCastRadiusGround;
 
     private RaycastHit cliffHit;
+    private float nearCliffAngle;
     private bool onCliff;
 
+
+    [SerializeField] private LayerMask wallMask;
     [Header("Movement")]
     [SerializeField]
     float speed = 5f;
@@ -34,7 +37,7 @@ public class SnailController : MonoBehaviour
 
     [SerializeField, HideInInspector] Quaternion initialRot;
     bool first = true;
-
+    private bool nearCliff;
 
     void Start()
     {
@@ -46,12 +49,22 @@ public class SnailController : MonoBehaviour
     {
         WallCheck();
         GroundCheck();
-        CliffCheck();
         setClimbing();
-        setDescending();
-        if (climbing)
+        CliffCheck();
+
+        if (!onGround)
+        {
+            transform.Translate(0, Time.deltaTime * -3f, 0);
+        }
+        else if (climbing)
         {
             HandleClimb();
+        }
+        else if (!nearCliff)
+        {
+            nearCliff = Physics.Raycast((transform.position - transform.up * detectionLength + transform.forward * 0.3f), -transform.forward, out groundHit, detectionLength);
+            nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
+            HandleClimbDown();
         }
         HandleMovement();
     }
@@ -79,18 +92,19 @@ public class SnailController : MonoBehaviour
         frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
         Debug.Log(frontHitAngle);
     }
-
+    
     private void GroundCheck()
     {
-        onGround = Physics.SphereCast(transform.position, sphereCastRadiusGround, -transform.up, out groundHit, detectionLength);
-        groundHitAngle = Vector3.Angle(groundHit.normal, Vector3.up);
-        groundDirection = Vector3.zero;
-
+        onGround = Physics.SphereCast(transform.position, 0.01f, -transform.up, out groundHit, 0.05f); 
         
+
+
     }
 
     private void CliffCheck()
     {
+        nearCliff = Physics.Raycast((transform.position + transform.forward * 0.3f), -transform.up, out groundHit, detectionLength);
+
 
     }
 
@@ -120,13 +134,15 @@ public class SnailController : MonoBehaviour
 
     private void HandleClimb()
     {
-        transform.position += transform.forward;
+        transform.position += 0.88f * transform.forward;
         transform.position += transform.up;
         transform.Rotate(-frontHitAngle, 0f, 0f);
     }
 
-    private void ClimbOff()
+    private void HandleClimbDown()
     {
-        climbing = false;
+        transform.position += 0.88f * transform.forward;
+        transform.position -= transform.up;
+        transform.Rotate(90-nearCliffAngle, 0f, 0f);
     }
 }
