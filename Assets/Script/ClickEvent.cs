@@ -38,7 +38,7 @@ public class ClickEvent : MonoBehaviour
     
             audioMusic.volume = 0;
             audioMusic.Stop();
-            SceneManager.LoadScene("Sandbox");
+            SceneManager.LoadScene("Lusk");
         }
     }
 }
