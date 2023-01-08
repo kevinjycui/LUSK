@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Flower : MonoBehaviour
 {
-    [SerializeField] LayerMask tableMask;
+    [SerializeField] LayerMask wallMask;
     [SerializeField] FieldManager fm;
     private float currentHeight;
     [SerializeField] float maxHeight;
@@ -29,9 +29,9 @@ public class Flower : MonoBehaviour
 
     }
 
-    public bool IsTableThere()
+    public bool IsSomethingAbove()
     {
-        if (Physics.Raycast(transform.position, new Vector3(0f, 1f, 0f), 50f, tableMask))
+        if (Physics.Raycast(transform.up, new Vector3(0f, 1f, 0f), 2f, wallMask))
         {
             return true;
         }
@@ -39,7 +39,12 @@ public class Flower : MonoBehaviour
     }
 
     IEnumerator Grow()
-    {   
-        yield return new WaitForSeconds(growthInterval);
+    {
+        Debug.Log("Grow");
+        while (!IsSomethingAbove() || transform.position.y < maxHeight)
+        {
+            transform.localScale += new Vector3(0f, 0.5f, 0f);
+            yield return 5f;
+        }
     }
 }

@@ -73,6 +73,9 @@ MonoBehaviour:
   tableMask:
     serializedVersion: 2
     m_Bits: 128
+  fm: {fileID: 0}
+  maxHeight: 0
+  growthInterval: 0
 --- !u!1 &3565961417094189901
 GameObject:
   m_ObjectHideFlags: 0
