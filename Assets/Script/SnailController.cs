@@ -4,33 +4,10 @@ using UnityEngine;
 
 public class SnailController : MonoBehaviour
 {
-    [SerializeField, HideInInspector]
-    bool isHidden;
-
-    [Header("Detection")]
-    [SerializeField]
-    float detectionLength;
-
-    private RaycastHit frontWallHit;
-    private float frontHitAngle;
-
-    private RaycastHit groundHit;
-    private float groundHitAngle;
-    private Vector3 groundDirection;
-    [SerializeField]
-    float sphereCastRadiusGround;
-
-    private RaycastHit cliffHit;
-    private float nearCliffAngle;
-
-
     [SerializeField] private LayerMask wallMask;
     [Header("Movement")]
     [SerializeField]
     float speed = 5f;
-
-    [SerializeField, HideInInspector] Quaternion initialRot;
-    bool first = true;
 
     void Start()
     {
@@ -43,12 +20,12 @@ public class SnailController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveToGround();
-
         WallCheck();
         CliffCheck();
 
         HandleMovement();
+        // MoveToGround();
+
     }
 
     void HandleMovement()
@@ -70,13 +47,21 @@ public class SnailController : MonoBehaviour
 
     private void WallCheck()
     {
+        float detectionLength = 1.6f;
+        RaycastHit frontWallHit;
+        float frontHitAngle;
+
         Ray ray = new Ray();
-        ray.origin = transform.position + transform.forward * 0.3f;
+        ray.origin = transform.position + transform.forward + transform.up;
         ray.direction = transform.forward;
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
         if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
             Debug.Log("up");
             frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
+            
+            Debug.Log(frontHitAngle);
+            if (frontHitAngle > -10 && frontHitAngle < 10) return;
+            
             transform.Rotate(-frontHitAngle, 0f, 0f);
             transform.position = frontWallHit.point;
         }
@@ -85,16 +70,21 @@ public class SnailController : MonoBehaviour
     
     private bool GroundCheck()
     {
-        Ray ray = new Ray();
-        ray.origin = transform.position + transform.up;
-        ray.direction = -transform.up;
-        return Physics.SphereCast(ray, sphereCastRadiusGround, 0.3f + detectionLength, wallMask);
+        float detectionLength = 2.8f;
+        float sphereCastRadiusGround = 30f;
 
+        Ray ray = new Ray();
+        ray.origin = transform.position;
+        ray.direction = -transform.up;
+        Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.white, 2, false);
+        return Physics.SphereCast(ray, sphereCastRadiusGround, detectionLength, wallMask);
     }
 
     private void MoveToGround()
     {
         if (GroundCheck()) return;
+
+        Debug.Log("ground");
 
         Ray ray = new Ray();
         ray.origin = transform.position + transform.up;
@@ -108,8 +98,13 @@ public class SnailController : MonoBehaviour
 
     private void CliffCheck()
     {
+        float detectionLength = 3.2f;
+
+        RaycastHit groundHit;
+        float nearCliffAngle;
+
         Ray ray = new Ray();
-        ray.origin = transform.position + transform.forward * (0.3f + 0.1f) + transform.up;
+        ray.origin = transform.position + transform.forward * 0.1f + transform.up;
         ray.direction = -transform.up;
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.red, 2, false);
 
@@ -118,11 +113,16 @@ public class SnailController : MonoBehaviour
         ray2.direction = -transform.forward;
         Debug.DrawRay(ray2.origin, ray2.direction * detectionLength, Color.blue, 2, false);
 
-        if (!Physics.Raycast(ray, detectionLength * 10f, wallMask)) {
-            Debug.Log("cliff");
-            if (Physics.Raycast(ray2, out groundHit, 0.3f)) {
+        RaycastHit tmp;
+
+        if (!Physics.Raycast(ray, out tmp, detectionLength, wallMask)) {
+            // Debug.Log("cliff");
+            if (Physics.Raycast(ray2, out groundHit, detectionLength, wallMask)) {
                 Debug.Log("down");
                 nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
+
+                Debug.Log(nearCliffAngle);
+
                 transform.Rotate(90-nearCliffAngle, 0f, 0f);
                 transform.position = groundHit.point;
             }

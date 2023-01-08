@@ -2686,14 +2686,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44881d1545cf0f546826d7ae4837a6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHidden: 0
-  detectionLength: 0.8
-  sphereCastRadiusGround: 0.05
   wallMask:
     serializedVersion: 2
     m_Bits: 8
   speed: 5
-  initialRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &819949662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,7 +3310,7 @@ GameObject:
   - component: {fileID: 937346365}
   - component: {fileID: 937346364}
   - component: {fileID: 937346363}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MiddleWallDown (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3566,7 +3562,7 @@ GameObject:
   - component: {fileID: 1079084704}
   - component: {fileID: 1079084703}
   - component: {fileID: 1079084702}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MiddleWallDown (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5100,7 +5096,7 @@ GameObject:
   - component: {fileID: 1605056125}
   - component: {fileID: 1605056124}
   - component: {fileID: 1605056123}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MiddleWallDown (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6816,7 +6812,7 @@ GameObject:
   - component: {fileID: 2140764153}
   - component: {fileID: 2140764152}
   - component: {fileID: 2140764151}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MiddleWallDown (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
