@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
         fieldManager.raining = true;
-        //Flower.gameObject.SetActive(true);
+        flower.gameObject.SetActive(true);
 
         if (Icicle.gameObject.activeSelf) Icicle.gameObject.SetActive(false);
         Icicle.transform.position = Icicle_transform.position;
@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
     void Fall()
     {
         flower.gameObject.SetActive(false);
-        //flower.transform = 
     }
 
     void Winter()
