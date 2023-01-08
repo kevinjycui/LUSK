@@ -35,14 +35,15 @@ public class stalactite: MonoBehaviour
         else
         {
             fm.stal_fell= false;
+            gameObject.SetActive(false);
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        gameObject.SetActive(false);
         gameObject.transform.position = pos;
         fm.stal_fell = true;
+        gameObject.SetActive(false);
 
     }
 

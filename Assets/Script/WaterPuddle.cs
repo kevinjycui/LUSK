@@ -10,7 +10,7 @@ public class WaterPuddle : MonoBehaviour
 
     private void Update()
     {
-        if (!(fm.season == 1) || !fm.stal_fell) gameObject.SetActive(false);
+        if (fm.season != 0||!fm.stal_fell) gameObject.SetActive(false);
     }
 
 

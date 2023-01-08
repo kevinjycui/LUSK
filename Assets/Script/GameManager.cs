@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Spring")]
     [SerializeField] GameObject rainParticles;
-    [SerializeField] WaterPuddle[] watterPuddles;
+    [SerializeField] WaterPuddle[] waterPuddles;
     [SerializeField] Flower[] flowers;
 
     [Header("Summer")]
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        watterPuddles = FindObjectsOfType<WaterPuddle>();
+        waterPuddles = FindObjectsOfType<WaterPuddle>();
         icicles = FindObjectsOfType<stalactite>();
         flowers = FindObjectsOfType<Flower>();
 
@@ -61,10 +61,12 @@ public class GameManager : MonoBehaviour
         fieldManager.season = 0;
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
-        for (int i = 0; i < watterPuddles.Length; i++) { gameObject.SetActive(true); }
-        for (int i = 0; i < flowers.Length; i++) { gameObject.SetActive(true); }
+        for (int i = 0; i < waterPuddles.Length; i++)
+        {
+            waterPuddles[i].gameObject.SetActive(true);
+        }
+        for (int i = 0; i < flowers.Length; i++) { flowers[i].gameObject.SetActive(true);}
         fieldManager.raining = true;
-
     }
 
     void Summer()
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
     {
         fieldManager.season = 3;
         snowParticles.SetActive(true);
-        for(int i = 0; i < icicles.Length; i++) { gameObject.SetActive(true); }
+        for(int i = 0; i < icicles.Length; i++) { icicles[i].gameObject.SetActive(true); }
     }
 
     IEnumerator fadeBlack(int whichSeason)
