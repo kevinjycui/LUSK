@@ -12,7 +12,7 @@ public class Kettle : MonoBehaviour
     [SerializeField] FieldManager fm;
     void Start()
     {
-        steamEffect.SetActive(false);
+        // steamEffect.SetActive(false);
     }
 
 
