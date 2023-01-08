@@ -8,8 +8,9 @@ public class EndingScript : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] CanvasGroup blackScreen;
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("End");
         TheEnd();
     }
 
