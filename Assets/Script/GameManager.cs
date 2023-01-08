@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("Spring")]
     [SerializeField] GameObject rainParticles;
     [SerializeField] WaterPuddle waterPuddle;
+    [SerializeField] Flower flower;
     
     [Header("Summer")]
 
@@ -55,6 +56,9 @@ public class GameManager : MonoBehaviour
     {
         snowParticles.SetActive(false);
         rainParticles.SetActive(true);
+        fieldManager.raining = true;
+        //Flower.gameObject.SetActive(true);
+
         if (Icicle.gameObject.activeSelf) Icicle.gameObject.SetActive(false);
         Icicle.transform.position = Icicle_transform.position;
         if (fieldManager.stal_fell == true) waterPuddle.gameObject.SetActive(true);
@@ -64,12 +68,14 @@ public class GameManager : MonoBehaviour
     void Summer()
     {
         rainParticles.SetActive(false);
+        fieldManager.raining = false;
         if (waterPuddle != null && waterPuddle.gameObject.activeSelf) waterPuddle.gameObject.SetActive(false);
     }
 
     void Fall()
     {
-
+        flower.gameObject.SetActive(false);
+        //flower.transform = 
     }
 
     void Winter()
