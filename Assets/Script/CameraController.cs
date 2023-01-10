@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private LayerMask mask;
 
     [SerializeField]
-    public float speed = 1f;
+    public float speed = 3f;
     public float rotationalSpeed = 2f;
 
     // Start is called before the first frame update
