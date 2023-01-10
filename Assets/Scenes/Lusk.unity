@@ -636,7 +636,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109769940}
   m_LocalRotation: {x: 0.12831387, y: -0.6953672, z: 0.12831387, w: 0.6953672}
-  m_LocalPosition: {x: 22.5, y: 14, z: -12.8}
+  m_LocalPosition: {x: 22.5, y: 14, z: 22.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -655,10 +655,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1118442f5879b47ae87c98296cc922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 713229249}
+  player: {fileID: 481643569}
   rainParticles: {fileID: 530441223}
   snowParticles: {fileID: 1187274336}
   sunParticles: {fileID: 1862092261}
+  mask:
+    serializedVersion: 2
+    m_Bits: 72
+  speed: 5
+  rotationalSpeed: 120
 --- !u!1 &133306705
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,6 +2846,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478501731}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &481643569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2809563699716250518, guid: 5429b5e62c0585e47977a94d410d4bd5, type: 3}
+  m_PrefabInstance: {fileID: 1703471077}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &497275404
 PrefabInstance:
   m_ObjectHideFlags: 0

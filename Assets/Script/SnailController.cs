@@ -30,7 +30,7 @@ public class SnailController : MonoBehaviour
         HandleTurning();
         // MoveToGround();
 
-        Debug.Log(targetAngleChange);
+        // Debug.Log(targetAngleChange);
 
         float change = 0f;
         if (targetAngleChange < 0f) {
@@ -90,10 +90,10 @@ public class SnailController : MonoBehaviour
         ray.direction = transform.forward;
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
         if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
-            Debug.Log("up");
+            // Debug.Log("up");
             frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
             
-            Debug.Log(frontHitAngle);
+            // Debug.Log(frontHitAngle);
             if (frontHitAngle > -10 && frontHitAngle < 10) return;
             
             transform.Rotate(targetAngleChange, 0f, 0f);
@@ -164,7 +164,7 @@ public class SnailController : MonoBehaviour
 
                 nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
 
-                Debug.Log(nearCliffAngle);
+                // Debug.Log(nearCliffAngle);
 
                 transform.Rotate(targetAngleChange, 0f, 0f);
                 targetAngleChange = 90-nearCliffAngle;
