@@ -949,6 +949,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1167951435}
+  rainParticles: {fileID: 902517887834234770, guid: 52936bff389bf5b468101c7a95093a1f, type: 3}
+  snowParticles: {fileID: 6358533757763215692, guid: a6f03fbf0a0ecfb4f89e1067c1c2f074, type: 3}
+  sunParticles: {fileID: 7764624625320294767, guid: ca1922b520d73db4bbef6cd072e42046, type: 3}
 --- !u!1001 &1655741743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1043,15 +1046,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44881d1545cf0f546826d7ae4837a6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isHidden: 0
-  detectionLength: 0.8
-  sphereCastRadiusGround: 0.1
   wallMask:
     serializedVersion: 2
     m_Bits: 8
   speed: 5
-  climbing: 0
-  initialRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &27111625835884255
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,9 +21,9 @@ public class Flower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fm.season == 1) { Grow(); }
-        else if (fm.season == 0) { }
-        else gameObject.SetActive(false);
+        // if (fm.season == 1) { Grow(); }
+        // else if (fm.season == 0) { }
+        // else gameObject.SetActive(false);
 
     }
 
