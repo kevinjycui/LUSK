@@ -74,11 +74,7 @@ public class SnailController : MonoBehaviour
         ray.direction = transform.forward;
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
 
-        RaycastHit collisionHit;
-        Physics.Raycast(ray, out collisionHit, detectionLength);
         if (Physics.Raycast(ray, out hit, detectionLength, wallMask)) {
-
-            if (!GameObject.ReferenceEquals(hit.collider.gameObject, collisionHit.collider.gameObject)) return;
 
             transform.Rotate(-Vector3.Angle(transform.up, hit.normal), 0f, 0f);
 
@@ -144,12 +140,8 @@ public class SnailController : MonoBehaviour
 
         RaycastHit tmp;
 
-        RaycastHit collisionHit;
-        Physics.Raycast(ray, out collisionHit, detectionLength);
         if (!Physics.Raycast(ray, out tmp, detectionLength, wallMask)) {
             if (Physics.SphereCast(ray2, sphereCastRadiusGround, out hit, detectionLength2, wallMask)) {
-
-                if (!GameObject.ReferenceEquals(hit.collider.gameObject, collisionHit.collider.gameObject)) return;
 
                 transform.Rotate(90-Vector3.Angle(transform.forward, hit.normal), 0f, 0f);
 
