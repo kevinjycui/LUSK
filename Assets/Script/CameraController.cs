@@ -16,8 +16,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private LayerMask mask;
 
     [SerializeField]
-    public float speed = 3f;
-    public float rotationalSpeed = 2f;
+    public float speed = 10000f;
+    public float rotationalSpeed = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -37,27 +37,42 @@ public class CameraController : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, targetY, transform.position.z), speed * Time.deltaTime);
 
-        Vector3 direction = Vector3.RotateTowards(transform.forward, targetAngle, rotationalSpeed * Time.deltaTime, 100f);
+        Vector3 direction = Vector3.RotateTowards(transform.forward, targetAngle, rotationalSpeed * Time.deltaTime, 1000f);
         transform.rotation = Quaternion.LookRotation(direction);
 
-        if (transform.position.y == targetY && transform.forward == targetAngle) {
-            RaycastHit hit;
-            for (int i=0; i<15; i++) {
-                for (int j=-i; j<=i+1; j+=2*i+1) {
-                    Ray ray = new Ray();
-                    ray.origin = transform.position + Vector3.up * (j * 5f);
-                    ray.direction = player.transform.position - ray.origin;
-                    Debug.DrawRay(ray.origin, ray.direction * 200f, Color.white, 0.5f, false);
-                    bool hitFlag = Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
-                    // Debug.Log(GameObject.ReferenceEquals(hit.collider.gameObject, player));
-                    if (hitFlag && GameObject.ReferenceEquals(hit.collider.gameObject, player)) {
-                        targetY = transform.position.y + j * 5f;
-                        targetAngle = ray.direction;
-                        // Debug.Log(targetAngle);
-                        return;
-                    }
+        // if (transform.position.y == targetY && transform.forward == targetAngle) {
+        Ray ray = new Ray();
+
+        ray.origin = transform.position;
+        ray.direction = transform.forward;
+
+        RaycastHit hit;
+
+        bool hitFlag = Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
+        if (hitFlag && GameObject.ReferenceEquals(hit.collider.gameObject, player)) return;
+
+        Vector3 origin = new Vector3(transform.position.x, player.transform.position.y + 10f, transform.position.z);
+
+        for (int i=0; i<4; i++) {
+            for (int j=-i; j<=i+1; j+=2*i+1) {
+                ray.origin = origin + Vector3.up * (j * 15f);
+                ray.direction = player.transform.position - ray.origin;
+                Debug.DrawRay(ray.origin, ray.direction * 200f, Color.white, 0.5f, false);
+                hitFlag = Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
+                // Debug.Log(GameObject.ReferenceEquals(hit.collider.gameObject, player));
+                if (hitFlag && GameObject.ReferenceEquals(hit.collider.gameObject, player)) {
+                    targetY = origin.y + j * 15f;
+                    // float angle = Vector3.Angle(transform.forward, ray.direction);
+                    // Debug.Log(angle);
+                    // transform.forward = ray.direction;
+                    targetAngle = ray.direction;
+                    // Debug.Log(targetAngle);
+                    return;
                 }
             }
+        // }
+        // }
+        
         }
     }
 }

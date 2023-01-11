@@ -11,19 +11,18 @@ public class SnailController : MonoBehaviour
     public float speed = 5f;
     public float rotationalSpeed = 120f;
 
-    private float targetAngleChange = 0f;
+    private Vector3 targetNormal;
 
     void Start()
     {
-        Quaternion initialRot = transform.rotation;
-      
         MoveToGround();
-        
+        targetNormal = transform.up;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         WallCheck();
         CliffCheck();
 
@@ -32,18 +31,8 @@ public class SnailController : MonoBehaviour
 
         // Debug.Log(targetAngleChange);
 
-        float change = 0f;
-        if (targetAngleChange < 0f) {
-            change = Mathf.Max(targetAngleChange, -rotationalSpeed * Time.deltaTime);
-        }
-        else if (targetAngleChange > 0f) {
-            change = Mathf.Min(targetAngleChange, rotationalSpeed * Time.deltaTime);
-        }
-
-        transform.Rotate(change, 0f, 0f);
-        targetAngleChange -= change;
-
-        if (change != 0f) return;
+        Quaternion targetRotation = TurretLookRotation(transform.forward, targetNormal);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime);
 
         float detectionLength = 2.6f;
         Ray ray = new Ray();
@@ -91,14 +80,24 @@ public class SnailController : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
         if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
             // Debug.Log("up");
-            frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
+            // frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
             
             // Debug.Log(frontHitAngle);
-            if (frontHitAngle > -10 && frontHitAngle < 10) return;
             
-            transform.Rotate(targetAngleChange, 0f, 0f);
-            targetAngleChange = -frontHitAngle;
+            // transform.Rotate(targetAngleChange, 0f, 0f);
+            // targetAngleChange = -frontHitAngle;
+
+            transform.Rotate(-Vector3.Angle(transform.up, frontWallHit.normal), 0f, 0f);
+
+            // transform.up = frontWallHit.normal;
+
             transform.position = frontWallHit.point;
+
+            MoveToGround();
+
+            // float angle = Vector3.SignedAngle(Vector3.right, frontWallHit.normal, Vector3.up);
+            // // Debug.Log(angle);
+            // transform.Rotate(0f, angle-90, 0f);
         }
         // Debug.Log(frontHitAngle);
     }
@@ -115,9 +114,15 @@ public class SnailController : MonoBehaviour
         return Physics.SphereCast(ray, sphereCastRadiusGround, detectionLength, wallMask);
     }
 
+    private Quaternion TurretLookRotation(Vector3 approximateForward, Vector3 exactUp) {
+        Quaternion zToUp = Quaternion.LookRotation(exactUp, -approximateForward);
+        Quaternion yToz = Quaternion.Euler(90, 0, 0);
+        return zToUp * yToz;
+    }
+
     private void MoveToGround()
     {
-        if (GroundCheck()) return;
+        // if (GroundCheck()) return;
 
         // Debug.Log("ground");
 
@@ -129,6 +134,7 @@ public class SnailController : MonoBehaviour
         Physics.Raycast(ray, out hit, Mathf.Infinity, wallMask);
 
         transform.position = hit.point;
+        targetNormal = hit.normal;
     }
 
     private void CliffCheck()
@@ -162,13 +168,21 @@ public class SnailController : MonoBehaviour
                 // ray3.direction = groundHit.point - ray2.origin;
                 // Physics.Raycast(ray3, out groundHit, detectionLength2 * 2f, wallMask);
 
-                nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
+                // nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
 
                 // Debug.Log(nearCliffAngle);
 
-                transform.Rotate(targetAngleChange, 0f, 0f);
-                targetAngleChange = 90-nearCliffAngle;
+                // transform.Rotate(targetAngleChange, 0f, 0f);
+                // targetAngleChange = 90-nearCliffAngle;
+
+                transform.Rotate(90-Vector3.Angle(transform.forward, groundHit.normal), 0f, 0f);
+
                 transform.position = groundHit.point;
+
+                MoveToGround();
+
+                // float angle = Vector3.SignedAngle(Vector3.right, groundHit.normal, Vector3.up);
+                // transform.Rotate(0f, angle+90, 0f);
             }
         }
 
