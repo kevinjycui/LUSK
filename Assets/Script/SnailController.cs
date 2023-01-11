@@ -11,12 +11,10 @@ public class SnailController : MonoBehaviour
     public float speed = 5f;
     public float rotationalSpeed = 120f;
 
-    private Vector3 targetNormal;
-
     void Start()
     {
         MoveToGround();
-        targetNormal = transform.up;
+        // targetNormal = transform.up;
     }
 
     // Update is called once per frame
@@ -30,9 +28,6 @@ public class SnailController : MonoBehaviour
         // MoveToGround();
 
         // Debug.Log(targetAngleChange);
-
-        Quaternion targetRotation = TurretLookRotation(transform.forward, targetNormal);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, speed * Time.deltaTime);
 
         float detectionLength = 2.6f;
         Ray ray = new Ray();
@@ -92,8 +87,9 @@ public class SnailController : MonoBehaviour
             // transform.up = frontWallHit.normal;
 
             transform.position = frontWallHit.point;
-
-            MoveToGround();
+                
+            Quaternion targetRotation = TurretLookRotation(transform.forward, frontWallHit.normal);
+            transform.rotation = targetRotation;
 
             // float angle = Vector3.SignedAngle(Vector3.right, frontWallHit.normal, Vector3.up);
             // // Debug.Log(angle);
@@ -134,7 +130,6 @@ public class SnailController : MonoBehaviour
         Physics.Raycast(ray, out hit, Mathf.Infinity, wallMask);
 
         transform.position = hit.point;
-        targetNormal = hit.normal;
     }
 
     private void CliffCheck()
@@ -178,8 +173,9 @@ public class SnailController : MonoBehaviour
                 transform.Rotate(90-Vector3.Angle(transform.forward, groundHit.normal), 0f, 0f);
 
                 transform.position = groundHit.point;
-
-                MoveToGround();
+                
+                Quaternion targetRotation = TurretLookRotation(transform.forward, groundHit.normal);
+                transform.rotation = targetRotation;
 
                 // float angle = Vector3.SignedAngle(Vector3.right, groundHit.normal, Vector3.up);
                 // transform.Rotate(0f, angle+90, 0f);

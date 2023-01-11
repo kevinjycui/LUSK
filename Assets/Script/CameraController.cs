@@ -35,10 +35,12 @@ public class CameraController : MonoBehaviour
         rainParticles.transform.position = transform.position - new Vector3(2f, 0f, 0f);
         transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z);
 
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, targetY, transform.position.z), speed * Time.deltaTime);
+        // transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, targetY, transform.position.z), speed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, targetY, transform.position.z);
 
-        Vector3 direction = Vector3.RotateTowards(transform.forward, targetAngle, rotationalSpeed * Time.deltaTime, 1000f);
-        transform.rotation = Quaternion.LookRotation(direction);
+        // Vector3 direction = Vector3.RotateTowards(transform.forward, targetAngle, rotationalSpeed * Time.deltaTime, 1000f);
+        // transform.rotation = Quaternion.LookRotation(direction);
+        transform.forward = player.transform.position - transform.position;
 
         // if (transform.position.y == targetY && transform.forward == targetAngle) {
         Ray ray = new Ray();
@@ -55,13 +57,13 @@ public class CameraController : MonoBehaviour
 
         for (int i=0; i<4; i++) {
             for (int j=-i; j<=i+1; j+=2*i+1) {
-                ray.origin = origin + Vector3.up * (j * 15f);
+                ray.origin = origin + Vector3.up * (j * 25f);
                 ray.direction = player.transform.position - ray.origin;
                 Debug.DrawRay(ray.origin, ray.direction * 200f, Color.white, 0.5f, false);
                 hitFlag = Physics.Raycast(ray, out hit, Mathf.Infinity, mask);
                 // Debug.Log(GameObject.ReferenceEquals(hit.collider.gameObject, player));
                 if (hitFlag && GameObject.ReferenceEquals(hit.collider.gameObject, player)) {
-                    targetY = origin.y + j * 15f;
+                    targetY = origin.y + j * 25f;
                     // float angle = Vector3.Angle(transform.forward, ray.direction);
                     // Debug.Log(angle);
                     // transform.forward = ray.direction;
