@@ -66,36 +66,27 @@ public class SnailController : MonoBehaviour
     private void WallCheck()
     {
         float detectionLength = 0.6f;
-        RaycastHit frontWallHit;
+        RaycastHit hit;
         float frontHitAngle;
 
         Ray ray = new Ray();
         ray.origin = transform.position + transform.forward + transform.up;
         ray.direction = transform.forward;
         Debug.DrawRay(ray.origin, ray.direction * detectionLength, Color.green, 2, false);
-        if (Physics.Raycast(ray, out frontWallHit, detectionLength, wallMask)) {
-            // Debug.Log("up");
-            // frontHitAngle = Vector3.Angle(transform.up, frontWallHit.normal);
-            
-            // Debug.Log(frontHitAngle);
-            
-            // transform.Rotate(targetAngleChange, 0f, 0f);
-            // targetAngleChange = -frontHitAngle;
 
-            transform.Rotate(-Vector3.Angle(transform.up, frontWallHit.normal), 0f, 0f);
+        RaycastHit collisionHit;
+        Physics.Raycast(ray, out collisionHit, detectionLength);
+        if (Physics.Raycast(ray, out hit, detectionLength, wallMask)) {
 
-            // transform.up = frontWallHit.normal;
+            if (!GameObject.ReferenceEquals(hit.collider.gameObject, collisionHit.collider.gameObject)) return;
 
-            transform.position = frontWallHit.point;
+            transform.Rotate(-Vector3.Angle(transform.up, hit.normal), 0f, 0f);
+
+            transform.position = hit.point;
                 
-            Quaternion targetRotation = TurretLookRotation(transform.forward, frontWallHit.normal);
+            Quaternion targetRotation = TurretLookRotation(transform.forward, hit.normal);
             transform.rotation = targetRotation;
-
-            // float angle = Vector3.SignedAngle(Vector3.right, frontWallHit.normal, Vector3.up);
-            // // Debug.Log(angle);
-            // transform.Rotate(0f, angle-90, 0f);
         }
-        // Debug.Log(frontHitAngle);
     }
     
     private bool GroundCheck()
@@ -138,7 +129,7 @@ public class SnailController : MonoBehaviour
         float detectionLength2 = 0.5f;
         float sphereCastRadiusGround = 2f;
 
-        RaycastHit groundHit;
+        RaycastHit hit;
         float nearCliffAngle;
 
         Ray ray = new Ray();
@@ -153,32 +144,19 @@ public class SnailController : MonoBehaviour
 
         RaycastHit tmp;
 
+        RaycastHit collisionHit;
+        Physics.Raycast(ray, out collisionHit, detectionLength);
         if (!Physics.Raycast(ray, out tmp, detectionLength, wallMask)) {
-            // Debug.Log("cliff");
-            if (Physics.SphereCast(ray2, sphereCastRadiusGround, out groundHit, detectionLength2, wallMask)) {
-                // Debug.Log("down");
+            if (Physics.SphereCast(ray2, sphereCastRadiusGround, out hit, detectionLength2, wallMask)) {
 
-                // Ray ray3 = new Ray();
-                // ray3.origin = ray2.origin;
-                // ray3.direction = groundHit.point - ray2.origin;
-                // Physics.Raycast(ray3, out groundHit, detectionLength2 * 2f, wallMask);
+                if (!GameObject.ReferenceEquals(hit.collider.gameObject, collisionHit.collider.gameObject)) return;
 
-                // nearCliffAngle = Vector3.Angle(transform.forward, groundHit.normal);
+                transform.Rotate(90-Vector3.Angle(transform.forward, hit.normal), 0f, 0f);
 
-                // Debug.Log(nearCliffAngle);
-
-                // transform.Rotate(targetAngleChange, 0f, 0f);
-                // targetAngleChange = 90-nearCliffAngle;
-
-                transform.Rotate(90-Vector3.Angle(transform.forward, groundHit.normal), 0f, 0f);
-
-                transform.position = groundHit.point;
+                transform.position = hit.point;
                 
-                Quaternion targetRotation = TurretLookRotation(transform.forward, groundHit.normal);
+                Quaternion targetRotation = TurretLookRotation(transform.forward, hit.normal);
                 transform.rotation = targetRotation;
-
-                // float angle = Vector3.SignedAngle(Vector3.right, groundHit.normal, Vector3.up);
-                // transform.Rotate(0f, angle+90, 0f);
             }
         }
 

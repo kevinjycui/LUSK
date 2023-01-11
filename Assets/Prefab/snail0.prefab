@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7775480520244657400}
   - component: {fileID: 2178451966456524725}
-  - component: {fileID: 6223429735161646300}
+  - component: {fileID: 2176512050040210591}
   m_Layer: 6
   m_Name: snail-body
   m_TagString: Untagged
@@ -448,8 +448,8 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0043172743, y: 0.014774684, z: -0.0018742327}
     m_Extent: {x: 0.01078186, y: 0.015810493, z: 0.006581557}
   m_DirtyAABB: 0
---- !u!65 &6223429735161646300
-BoxCollider:
+--- !u!64 &2176512050040210591
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -458,9 +458,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.024983266, y: 0.06507164, z: 0.01479239}
-  m_Center: {x: 0.006738023, y: 0.036441095, z: -0.0007023744}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3343094662649063597, guid: 7977edf6d9c9c68479b9bf0e58214aa6, type: 3}
 --- !u!1 &9217790244309301223
 GameObject:
   m_ObjectHideFlags: 0
